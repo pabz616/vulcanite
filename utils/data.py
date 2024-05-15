@@ -1,0 +1,49 @@
+
+from faker import Faker
+fake = Faker()
+day = fake.day_of_month()
+month = fake.month_name()
+
+
+class ProjectData:
+    simpleAscii = "!@#$%^&'"
+    blankString = ""
+    simpleString = 'this is a security test'
+    simpleHTML = '<h1>test</h1>'
+    htmlEntities = '&lt;test&lt;'
+    scriptTagVariation = '<ScRiPt>alert("XSS")</ScRiPt>'
+    mixedCharSet = 'Lorem ipsum dolor sit amet, Римский император Константин I Великий, 北京位於華北平原的西北边缘'
+    sanskrit = 'وضع ابن الهيثم تصور واضح للعلاقة بين النموذج الرياضي المثالي ومنظومة الظواهر الملحوظة.'
+    sqlInjection = "OR 1=1;##"
+    sqlInjection2 = " '+OR+1=1-- "
+    sqlInjection_lowercase = " '+or+1=1-- "
+    sqlInjection_encoded = "%22%27%20OR%20%271%27%3D%271%22"
+    encoding = '?search=%22%3E%3Csvg%3E%3Canimatetransform%20onbegin=alert(1)%3E'
+    jsInjection = "Nice site,  I think I'll take it. <script>alert('Executing JS')</script>"
+    jsInjectionAllCaps = "Another one <SCRIPT>ALERT('DOCUMENT.COOKIE')</SCRIPT>"
+    brokenHTML = '<i><b>Bold</i></b>'
+    anchorTag = '<ahref="<script>alert("Executing JS")</script>">Home</a>'
+    xssImageTag = "<img src=x onerror=alert(‘boo’)>"
+    escapeSequence = " `<img src=x onerror=alert(‘boo’)>` "
+    newUser = 'turquoise777777QA!$'  # fake.color_name()+'777777'+'QA!$'
+    fname = fake.first_name_male()
+    lname = fake.last_name()
+    email = fake.email()
+    tel = '2123334455'
+    birthday = day+" "+month+" "+'1975'
+    subj = "English"
+    address = fake.address()
+    randomString = fake.pystr()
+    response_limit = float(1.0)
+    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRlbW9RQSIsInBhc3N3b3JkIjoiYmxVZU3Dtm9uOTckIiwiaWF0IjoxNzEzNDYzNTM4fQ.yXI26P4Zl-TvH2_MqbPRS-U5muGwedeKSjvVD1Lv-VQ"# seconds
+
+
+class NetworkScan(object):
+    target_ip = "192.168.1.1/24"
+    
+    
+class InvalidEmailAddresses:
+    badEmails = ['badEmail', 'email.domain.com', '@domain.com',
+                 '#@%^%#$@#$@#.com', 'email@domain.com (Joe Smith)', 'email@domain@domain.com', '.email@domain.com',
+                 'email.@domain.com', 'email..email@domain.com', 'あいうえお@domain.com', 'email@-domain.com', 'email@.domain.com',
+                 'email@111.222.333.44444', 'email@domain..com']
