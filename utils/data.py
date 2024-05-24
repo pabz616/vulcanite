@@ -6,7 +6,7 @@ month = fake.month_name()
 
 
 class ProjectData:
-    target_url = '#'
+    target_url = 'https://pentest-ground.com:81/'
     target_endpoint = ''
     target_ip = "192.168.1.1/24"
     response_limit = float(1.0)
@@ -51,6 +51,7 @@ class XSSPayloads:
     xssImageTag = "<img src=x onerror=alert(‘boo’)>"
     escapeSequence = " `<img src=x onerror=alert(‘boo’)>` "
     encoding = '?search=%22%3E%3Csvg%3E%3Canimatetransform%20onbegin=alert(1)%3E'
+    recursiveFilter = "-prompt()-"
     
 
 class URLPayloads:
