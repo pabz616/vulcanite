@@ -18,7 +18,7 @@ class TestReflectedCrossSiteScriptInjection:
         yield
 
     def test_xss_using_html_tags(self, page: Page):
-        with allure.step(f"Visit site, navigate to target input,, and submit xss using html tag - {xss.simpleHTML}"):
+        with allure.step(f"Visit site, navigate to target input, and submit xss using html tag - {xss.simpleHTML}"):
             target(page).submit_exploit(xss.simpleHTML)
   
     def test_xss_using_html_entities(self, page: Page):

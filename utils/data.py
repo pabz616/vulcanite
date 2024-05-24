@@ -36,8 +36,11 @@ class StringPayloads:
 class SQLIPayloads:
     sqlInjection = "OR 1=1;##"
     sqlInjection2 = " '+OR+1=1-- "
+    sqlInjection3 = '%27+OR+1=1--%27'
     sqlInjection_lowercase = " '+or+1=1-- "
     sqlInjection_encoded = "%22%27%20OR%20%271%27%3D%271%22"
+    sqlInjection_nullBytes = "%00' UNION SELECT password FROM Users WHERE username='admin'--' "
+    sqlInjection_inline = "/**/UNION/**/SELECT/**/password/**/FROM/**/Users/**/WHERE/**/name/**/LIKE/**/'admin'-- "
 
 
 class XSSPayloads:

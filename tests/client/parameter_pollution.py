@@ -20,6 +20,6 @@ def test_parameter_pollution(page: Page):  # input("Please enter the URL to test
             page.goto(pd.target_url+f"{params}")
             response = requests.get(pd.target_url+f"{params}")
             assert response.status_code != 302, f"Vulnerability found! Redirect was successful at {0}.format(response.status_code)"
-            png_bytes = page.screenshot()
-            Path("full-page.png").write_bytes(png_bytes)
-            allure.attach.file("full-page.png", name="full-page", attachment_type=allure.attachment_type.PNG)
+            # png_bytes = page.screenshot()
+            # Path("full-page.png").write_bytes(png_bytes)
+            # allure.attach.file("full-page.png", name="full-page", attachment_type=allure.attachment_type.PNG)
