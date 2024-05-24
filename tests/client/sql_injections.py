@@ -3,7 +3,7 @@ import requests
 from playwright.sync_api import Page
 from utils.data import ProjectData as pd, SQLIPayloads as sqli
 import utils.assertions as confirm
-from tests.pages.targetPage import TargeInput as target
+from tests.pages.searchPage import SearchInput as search
 import allure
 from allure_commons.types import Severity
 
@@ -22,8 +22,8 @@ class TestSQLInjection:
             confirm.internal_server_error(response, 500)
     
     def test_SQL_Injection_In_URL_Using_NullBytes(self, page: Page):
-        with allure.step(f"Visit site and submit sql injection with null bytes in url for blog post 1  - {sqli.sqlInjectionNullBytes}"):
-            attack_url = pd.target_url + '/post/1&' + sqli.sqlInjectionNullBytes
+        with allure.step(f"Visit site and submit sql injection with null bytes in url for blog post 1  - {sqli.sqlInjection_nullBytes}"):
+            attack_url = pd.target_url + '/post/1&' + sqli.sqlInjection_nullBytes
             page.goto(attack_url)
             response = requests.get(attack_url)
             confirm.bad_request_status(response, 400)
@@ -37,46 +37,44 @@ class TestSQLInjectionInSearch:
         
     def test_SQL_Injection_With_OR_Statement_In_Search_Input(self, page: Page):
         with allure.step(f"Visit site and submit sql injection with OR statement in search input  - {sqli.sqlInjection}"):
-            target(page).submit_exploit(sqli.sqlInjection)
+            search(page).submit_exploit(sqli.sqlInjection)
             response = requests.get(pd.target_url)
             confirm.ok_response_status(response, 200)
             
     def test_SQL_Injection_With_Spacing_In_Search_Input(self, page: Page):
         with allure.step(f"Visit site and submit sql injection with OR statement in search input  - {sqli.sqlInjection2}"):
-            target(page).submit_exploit(sqli.sqlInjection2)
+            search(page).submit_exploit(sqli.sqlInjection2)
             response = requests.get(pd.target_url)
             confirm.ok_response_status(response, 200)
     
     def test_SQL_Injection_With_Null_Bytes_In_Search_Input(self, page: Page):
         with allure.step(f"Visit site and submit sql injection with null bytes in search input  - {sqli.sqlInjection_nullBytes}"):
-            target(page).submit_exploit(sqli.sqlInjection_nullBytes)
+            search(page).submit_exploit(sqli.sqlInjection_nullBytes)
             response = requests.get(pd.target_url)
             confirm.ok_response_status(response, 200)  # no effect from successful injection
          
     def test_SQL_Injection_With_Encoded_String_In_Search_Input(self, page: Page):
         with allure.step(f"Visit site and submit sql injection with encoding in search input  - {sqli.sqlInjection_encoded}"):
-            target(page).submit_exploit(sqli.sqlInjection_encoded)
+            search(page).submit_exploit(sqli.sqlInjection_encoded)
             response = requests.get(pd.target_url)
             confirm.ok_response_status(response, 200)  # no effect from successful injection
             
     def test_SQL_Injection_With_Inline_String_In_Search_Input(self, page: Page):
         with allure.step(f"Visit site and submit sql injection with encoding in search input  - {sqli.sqlInjection_inline}"):
-            target(page).submit_exploit(sqli.sqlInjection_inline)
+            search(page).submit_exploit(sqli.sqlInjection_inline)
             response = requests.get(pd.target_url)
             confirm.ok_response_status(response, 200)  # no effect from successful injection
 
-# class TestSQLInjectionAtLogin:
-#     @pytest.fixture(scope="function", autouse=True)
-#     def before_each(self, page: Page):
-#         page.goto(DemoQA.baseUrl+'/login')
-#         yield
+
+class TestSQLInjectionAtLogin:
+    @pytest.fixture(scope="function", autouse=True)
+    def before_each(self, page: Page):
+        page.goto(pd.target_url+'/login')
+        yield
                 
-#     def test_SQL_Injection_At_Login_Username(self, page: Page):
-#         """Test SQL injection in query parameter should fail"""
+    def test_SQL_Injection_At_Login_Username(self, page: Page):
+        """Test SQL injection in query parameter should fail"""
         
-#         onBookStoreLogin = BookStoreLogin(page)
-#         onBookStoreLogin.submitLogin(pd.sqlInjection, 'password123')
-#         onBookStoreLogin.confirmInvalidLoginCredentialsValidation
 
 #     def test_SQL_Injection_At_Login_Password(self, page: Page):
 #         """Test SQL injection at password should fail"""
