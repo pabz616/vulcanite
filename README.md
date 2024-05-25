@@ -24,3 +24,9 @@ src. Vulcanite is a rare copper telluride mineral.
   |_reports
     |__report_1.py
 ```
+
+# Run the tests
+pytest <script name> --alluredir ./reports/allure-results
+
+# Generate the report
+allure serve ./reports/allure-results

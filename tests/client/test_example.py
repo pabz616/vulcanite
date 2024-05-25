@@ -1,9 +1,13 @@
 import re
 from playwright.sync_api import Page, expect
 import allure
+from allure_commons.types import Severity
 from pathlib import Path
 
 
+@allure.title("Test For Broken Object Property Level Authorization (BOLA)")
+@allure.description("API3:2023 Broken Object Property Level Authorization")
+@allure.severity(Severity.CRITICAL)
 @allure.testcase("TMS-455")
 def test_has_title(page: Page):
     with allure.step("Visit site and confirm page title"):
