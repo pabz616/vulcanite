@@ -1,9 +1,9 @@
-from playwright.sync_api import expect
+import requests
 from utils.data import SQLIPayloads as sqli
 
 """
 LOCATORS
-"""
+""" 
 
 EMAIL = '(//input[@type="email"])[2]'
 SUBMIT = '//button[contains(.,"Subscribe")]'
@@ -28,5 +28,9 @@ class EmailInput:
         
     def submit_exploit_in_email_field(self):
         for exploit in payloads:
-            self.emailField.fill(f"test+{exploit}+@mail.com")
+            self.emailAddressField.fill(f"test+{exploit}+@mail.com")
             self.subscribeButton.click()
+            
+    def confirm_form_submission_is_unsuccessful(self, url):
+        response = requests.get(url)
+        assert response.status_code != 302, f"SQLI InjectionVulnerability occurred using - {0}"

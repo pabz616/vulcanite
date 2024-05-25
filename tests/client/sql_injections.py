@@ -6,6 +6,7 @@ import utils.assertions as confirm
 from tests.pages.searchPage import SearchInput as atSearch
 from tests.pages.loginPage import LoginInput as atLogin
 from tests.pages.emailPage import EmailInput as atSubscribe
+from tests.pages.contactPage import ContactForm as atContact
 import allure
 from allure_commons.types import Severity
 
@@ -40,8 +41,7 @@ class TestSQLInjectionInSearch:
     def test_SQL_Injection_In_Search_Input(self, page: Page):
         with allure.step("Visit site and submit sql injection in search input"):
             atSearch(page).submit_exploit
-            response = requests.get(pd.target_url)
-            confirm.ok_response_status(response, 200), f"SQLI InjectionVulnerability occurred using - {0}"
+            atSearch(page).confirm_search_is_unsuccessful(pd.target_url)
             
     
 class TestSQLInjectionAtLogin:
@@ -68,8 +68,9 @@ class TestSQLInjectionAtRegistration:
         yield
 
     @pytest.mark.skip(reason="Not implemented")
-    def test_SQL_Injection_At_Registration(self, page: Page):        
-        atLogin(page).navigate_to_registration_form
+    def test_SQL_Injection_At_Registration(self, page: Page):
+        with allure.step("Visit site, navigate to login, click 'register' and submit sql injection"):        
+            atLogin(page).navigate_to_registration_form
         
 
 class TestSQLInjectionAtSubscriptionInput:
@@ -78,11 +79,35 @@ class TestSQLInjectionAtSubscriptionInput:
         page.goto(pd.target_url)
         yield
 
-    def test_SQL_Injection_At_Email_In_Footer(self, page: Page):        
-        atSubscribe(page).submit_exploit_in_email_field
-        response = requests.get(pd.target_url)
-        assert response.status_code != 302, f"SQLI InjectionVulnerability occurred using - {0}"
+    def test_SQL_Injection_At_Email_In_Footer(self, page: Page):
+        with allure.step("Visit site, scroll down to footer and submit sql injection at subscription (email) input"):        
+            atSubscribe(page).submit_exploit_in_email_field
+            atSubscribe(page).confirm_form_submission_is_unsuccessful(pd.target_url)
 
 
+class TestSQLInjectionAtContactForm:
+    @pytest.fixture(scope="function", autouse=True)
+    def before_each(self, page: Page):
+        page.goto(pd.target_url+'/contact')
+        yield
+        
+    def test_SQL_Injection_At_Contact_Form_Name_Input(self, page: Page):
+        with allure.step("Visit site, click contact us, submit sql injection at contact form, name input"):         
+            atContact(page).submit_exploit_in_name_field
+            atContact(page).confirm_form_submission_is_unsuccessful(pd.target_url)
 
-# TODO - Test SQL Injection At Contact Form
+    def test_SQL_Injection_At_Contact_Form_Email_Input(self, page: Page):
+        with allure.step("Visit site, click contact us, submit sql injection at contact form, email input"):        
+            atContact(page).submit_exploit_in_email_field
+            atContact(page).confirm_form_submission_is_unsuccessful(pd.target_url)
+          
+    def test_SQL_Injection_At_Contact_Form_Phone_Input(self, page: Page):
+        with allure.step("Visit site, click contact us, submit sql injection at contact form, phone number input"):        
+            atContact(page).submit_exploit_in_phone_field
+            atContact(page).confirm_form_submission_is_unsuccessful(pd.target_url)
+        
+    def test_SQL_Injection_At_Contact_Form_Message_Input(self, page: Page):
+        with allure.step("Visit site, click contact us, submit sql injection at contact form, message input"):      
+            atContact(page).submit_exploit_in_message_field
+            atContact(page).confirm_form_submission_is_unsuccessful(pd.target_url)
+        
