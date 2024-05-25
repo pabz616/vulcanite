@@ -5,6 +5,7 @@ from utils.data import ProjectData as pd, SQLIPayloads as sqli
 import utils.assertions as confirm
 from tests.pages.searchPage import SearchInput as atSearch
 from tests.pages.loginPage import LoginInput as atLogin
+from tests.pages.emailPage import EmailInput as atSubscribe
 import allure
 from allure_commons.types import Severity
 
@@ -69,3 +70,19 @@ class TestSQLInjectionAtRegistration:
     @pytest.mark.skip(reason="Not implemented")
     def test_SQL_Injection_At_Registration(self, page: Page):        
         atLogin(page).navigate_to_registration_form
+        
+
+class TestSQLInjectionAtSubscriptionInput:
+    @pytest.fixture(scope="function", autouse=True)
+    def before_each(self, page: Page):
+        page.goto(pd.target_url)
+        yield
+
+    def test_SQL_Injection_At_Email_In_Footer(self, page: Page):        
+        atSubscribe(page).submit_exploit_in_email_field
+        response = requests.get(pd.target_url)
+        assert response.status_code != 302, f"SQLI InjectionVulnerability occurred using - {0}"
+
+
+
+# TODO - Test SQL Injection At Contact Form
