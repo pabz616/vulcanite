@@ -5,6 +5,7 @@ src: https://gist.github.com/sundowndev/283efaddbcf896ab405488330d1bbc06
 """
 
 import webbrowser
+from utils.data import ProjectData as pd
 
 google = "https://www.google.com"
 
@@ -62,7 +63,7 @@ def search_for_filetype(url):
 # ###*******************************************###### #
 
 
-url = input("Please enter the url you want to search: ")
+url = pd.target_url
 search_site(url)
 search_cache(url)
 search_intext(url)
