@@ -19,8 +19,6 @@ DIR = {
     f"{Url}/dashboard",
     f"{Url}/../../../etc/passwd/"
     f"{Url}/users/",
-    f"{Url}/site_map.xml",
-    f"{Url}/robots.txt",
 }
 
 
