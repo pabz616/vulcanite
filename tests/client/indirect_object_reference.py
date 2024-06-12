@@ -15,6 +15,7 @@ def auth_headers():
         "Content-Type": "application/json"
     }
 
+
 def test_indirect_object_reference(auth_headers):
     # Valid request by the user to their own resource
     valid_url = f"{BASE_URL}/user/{VALID_USER_ID}"
@@ -28,6 +29,7 @@ def test_indirect_object_reference(auth_headers):
     # Depending on your application's response to unauthorized access,
     # you might expect a 403 Forbidden, 404 Not Found, etc.
     assert response.status_code in {403, 404}, f"Expected 403 or 404 but got {response.status_code}"
+
 
 if __name__ == "__main__":
     pytest.main()
