@@ -6,7 +6,7 @@ month = fake.month_name()
 
 
 class ProjectData:
-    target_url = 'https://pentest-ground.com:81/'
+    target_url = 'https://pentest-ground.com:81'
     target_endpoint = ''
     target_ip = "192.168.1.1/24"
     response_limit = float(1.0)
