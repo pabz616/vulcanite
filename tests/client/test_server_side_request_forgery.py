@@ -21,10 +21,15 @@ PAGES = {
     f"{Url}/about",
     f"{Url}/services",
     f"{Url}/blog",
+    f"{Url}/create",
     f"{Url}/post/1",
-    f"{Url}/post/2",
-    f"{Url}/contact"
-    f"{Url}/login"
+    f"{Url}/1/edit",
+    f"{Url}/2/edit",
+    f"{Url}/contact",
+    f"{Url}/login",
+    f"{Url}/search",
+    f"{Url}/clients",
+    f"{Url}/console"
 }
 
 
