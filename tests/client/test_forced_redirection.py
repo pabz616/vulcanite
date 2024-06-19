@@ -1,7 +1,6 @@
 import pytest
 import requests
 from playwright.sync_api import Page
-import utils.assertions as confirm
 from utils.data import ProjectData as pd
 from utils.injection_parameters import InjectionParameters as IP
 import allure
