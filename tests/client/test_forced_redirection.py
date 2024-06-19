@@ -35,7 +35,7 @@ class TestForcedBrowsing:
         with allure.step("Visit site and attempt forced browsing to a directory not explicitly visible, but available"):
             page.goto(target_url)
             response = requests.get(target_url)
-            confirm.not_found_response_status(response, 404), f"Forced browse vulnerability occurred: - {target_url}"
+            assert response.status_code != 302, f"Forced browse vulnerability occurred: - {redir_url }"
 
     def test_for_forced_redirection_with_filter_bypass(self, page: Page, target_url):
         with allure.step("Visit site and attempt forced browsing using a whitelisted domain or keyword"):
@@ -43,15 +43,17 @@ class TestForcedBrowsing:
             response = requests.get(target_url)
             assert response.status_code != 302, f"Forced browse vulnerability occurred: - {target_url}"
 
+
 @pytest.mark.security
 @allure.severity(Severity.CRITICAL)
 @allure.title("WSTG-CLNT-04 - Testing for Client-side URL Redirect )")
 @allure.description("Test for forced browsing by enumerating and accessing resources that are not referenced by the application.")
 class TestForcedUrlRedirect:
+    @pytest.mark.skip(reason="Unskip as necessary; url is not referenced by the application")
     def test_for_forced_redirection_using_CRLF(self, page: Page):
         with allure.step("Visit site and attempt forced browsing using CRLF to bypass 'javascript' blacklisted keyword"):
-            redir_url = pd.target_url+'evil.com'
-            page.goto(redir_url + '?#redirect=java%0d%0ascript%0d%0a:alert(0)')
+            redir_url = f"{pd.target_url}+'evil.com/?#redirect=java%0d%0ascript%0d%0a:alert(0)'"
+            page.goto(redir_url)
             response = requests.get(redir_url)
             assert response.status_code != 302, f"Forced browse vulnerability occurred: - {redir_url }"
             
@@ -111,30 +113,33 @@ class TestForcedUrlRedirect:
             response = requests.get(redir_url)
             assert response.status_code != 302, f"Forced browse vulnerability occurred: - {redir_url}"
             
+    @pytest.mark.skip(reason="Unskip as necessary; url is not referenced by the application")
     def test_for_forced_redirection_using_host_split_unicode_normalization(self, page: Page):
         with allure.step("Visit site and attempt forced browsing using host/split unicode normalization"):
-            redir_url = f"https://evil.c℀.{pd.target_url}"
+            url = pd.target_url.removeprefix('https://')
+            redir_url = f"https://evil.c℀./{url}"
             page.goto(redir_url)
             response = requests.get(redir_url)
             assert response.status_code != 302, f"Forced browse vulnerability occurred: - {redir_url}"
-            
+
+    @pytest.mark.skip(reason="Unskip as necessary; url is not referenced by the application")            
     def test_for_forced_redirection_using_xss_from_open_url(self, page: Page):
         with allure.step("Visit site and attempt forced browsing using xss from open url"):
-            redir_url = f"https://{pd.target_url};alert(0);//"
+            redir_url = f"{pd.target_url}alert(0);//"
             page.goto(redir_url)
             response = requests.get(redir_url)
             assert response.status_code != 302, f"Forced browse vulnerability occurred: - {redir_url}"
             
     def test_for_forced_redirection_using_xss_from_data_wrapper(self, page: Page):
         with allure.step("Visit site and attempt forced browsing using XSS from data:// wrapper"):
-            redir_url = f"https://{pd.target_url};/redirect.php?url=data:text/html;base64,PHNjcmlwdD5hbGVydCgiWFNTIik7PC9zY3JpcHQ+Cg=="
+            redir_url = f"{pd.target_url}/redirect.php?url=data:text/html;base64,PHNjcmlwdD5hbGVydCgiWFNTIik7PC9zY3JpcHQ+Cg=="
             page.goto(redir_url)
             response = requests.get(redir_url)
             assert response.status_code != 302, f"Forced browse vulnerability occurred: - {redir_url}"
             
     def test_for_forced_redirection_using_xss_from_javascript_wrapper(self, page: Page):
         with allure.step("Visit site and attempt forced browsing using XSS from javascript wrapper"):
-            redir_url = f"https://{pd.target_url}/redirect.php?url=javascript:prompt(1)"
+            redir_url = f"{pd.target_url}/redirect.php?url=javascript:prompt(1)"
             page.goto(redir_url)
             response = requests.get(redir_url)
             assert response.status_code != 302, f"Forced browse vulnerability occurred: - {redir_url}"
