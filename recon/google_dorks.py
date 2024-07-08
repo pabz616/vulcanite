@@ -59,11 +59,12 @@ def search_for_related(url):
 def search_for_filetype(url):
     """Use the “filetype” operator to search for specific file types"""
     run_search("filetype:pdf"+" "+"site:"+url)
+    pass
 
 # ###*******************************************###### #
 
 
-url = pd.target_url
+url = input("Please enter the url: ")
 search_site(url)
 search_cache(url)
 search_intext(url)
