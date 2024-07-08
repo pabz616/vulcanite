@@ -12,11 +12,10 @@ Test Objectives
 import pytest
 import webbrowser
 from playwright.sync_api import Page
-from utils.data import ProjectData as pd
 import allure
 
 
-Url = pd.target_url
+Url = input('Please enter a URL: ')
 
 METAFILES = {
     f"{Url}robots.txt",
