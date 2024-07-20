@@ -7,11 +7,14 @@ month = fake.month_name()
 
 class ProjectData:
     target_url = ''  # TODO: Always set this per project
-    target_endpoint = 'http://altoro.testfire.net/api'
     target_ip = "192.168.1.1/24"
+        
+
+class APIData:
+    target_endpoint = 'http://altoro.testfire.net/api'
     response_limit = float(1.0)
-
-
+    
+    
 class FormData:
     newUser = 'turquoise777777QA!$'  # fake.color_name()+'777777'+'QA!$'
     fname = fake.first_name_male()
