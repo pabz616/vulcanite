@@ -13,7 +13,10 @@ class ProjectData:
 class APIData:
     target_endpoint = 'http://altoro.testfire.net/api'
     response_limit = float(1.0)
-    
+    accountNo = '800000'
+    user_authorization = 'YW5OdGFYUm86WkdWdGJ6RXlNelE9Oj9aeD9SPyQ='
+    admin_authorization = 'WVdSdGFXND06WVdSdGFXND06Zj8/ZT8/Pw=='
+
     
 class FormData:
     newUser = 'turquoise777777QA!$'  # fake.color_name()+'777777'+'QA!$'
