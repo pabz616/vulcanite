@@ -41,3 +41,8 @@ def internal_server_error(response, status_code):
     
 def api_response_time(response):
     assert_that(response.elapsed.total_seconds()).is_less_than(pd.response_limit), "API Response: {0}".format(response.elapsed.total_seconds)
+    
+    
+def created_token(resp_body):
+    assert_that(resp_body["Authorization"]).is_not_none(), "Token was not generated"
+    assert_that(resp_body["status"]).is_equal_to("success"), "Not successful"

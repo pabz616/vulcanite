@@ -1,4 +1,4 @@
-
+import os
 from faker import Faker
 fake = Faker()
 day = fake.day_of_month()
@@ -16,8 +16,11 @@ class APIData:
     accountNo = '800000'
     user_authorization = 'YW5OdGFYUm86WkdWdGJ6RXlNelE9Oj9aeD9SPyQ='
     admin_authorization = 'WVdSdGFXND06WVdSdGFXND06Zj8/ZT8/Pw=='
-
+    loginData = {"userName": os.environ["USN"], "password": os.environ["PWD"]}
+    blankLoginData = {"userName": '', "password": ''}
+    invalidLoginData = {"userName": fake.email(), "password": fake.pystr()}
     
+
 class FormData:
     newUser = 'turquoise777777QA!$'  # fake.color_name()+'777777'+'QA!$'
     fname = fake.first_name_male()

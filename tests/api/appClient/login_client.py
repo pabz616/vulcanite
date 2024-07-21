@@ -1,21 +1,29 @@
-from 
-from utils.api_requests import APIRequest
-import requests
-from utils.data import ProjectData as pd
+from json import dumps
+from api.baseClient.client import BaseClient
+from utils.data import APIData as api
+from utils.urls import Endpoints
+from api.baseAPI.request import APIRequest
 
-session = requests.Session()
 
-
-class APIClient(BaseClient):
+class LoginClient(BaseClient):
     def __init__(self):
         super().__init__()
+        
+        self.login_url = Endpoints.LOGIN
         self.request = APIRequest()
-        self.target_url = pd.target_url
-                
-    def update_header(self, host):
-        session.headers.update({
-            'Host': f"{host}"
-        })
-        return self.request.put(self.target_url, self.headers)
+        
+    def authenticate_user(self):
+        payload = dumps(api.loginData)
+        return self.request.post(self.login_url, payload, self.headers)
     
-    session.close()
+    def submit_blank_credentials(self):
+        payload = dumps(api.blankLoginData)
+        return self.request.post(self.login_url, payload, self.headers)
+    
+    def submit_invalid_credentials(self):
+        payload = dumps(api.invalidLoginData)
+        return self.request.post(self.login_url, payload, self.headers)
+        
+    def get_auth_token(self):
+        payload = dumps(api.loginData)
+        self.request.post(self.login_url, payload, self.user_headers)
