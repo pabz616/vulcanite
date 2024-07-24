@@ -27,6 +27,14 @@ class TestCriticalLoginEndpoint:
         response = client.submit_invalid_credentials()
         confirm.validation_response_status(response, 400)
         
+    def test_invalid_login_sqli_check(self):
+        response = client.invalid_login_sqli_check()
+        confirm.validation_response_status(response, 400)
+        
+    def test_invalid_login_xss_check(self):
+        response = client.invalid_login_xss_check()
+        confirm.validation_response_status(response, 400)
+        
     def test_get_token(self):
         response = client.authenticate_user()
         data = json.loads(response.text)

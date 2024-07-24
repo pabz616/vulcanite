@@ -17,8 +17,6 @@ class APIData:
     user_authorization = 'YW5OdGFYUm86WkdWdGJ6RXlNelE9Oj9aeD9SPyQ='
     admin_authorization = 'WVdSdGFXND06WVdSdGFXND06Zj8/ZT8/Pw=='
     loginData = {"userName": os.environ["USN"], "password": os.environ["PWD"]}
-    blankLoginData = {"userName": '', "password": ''}
-    invalidLoginData = {"userName": fake.email(), "password": fake.pystr()}
     
 
 class FormData:
