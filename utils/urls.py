@@ -8,7 +8,6 @@ class Endpoints(object):
     BASE_URL = os.getenv("BASE_URL", api.target_endpoint)
     LOGIN = f"{BASE_URL}/login"
     ACCOUNT = f"{BASE_URL}/account"
-    ACCOUNT_SEARCH = f"{BASE_URL}/account/{accountNo}"
     ACCOUNT_TRANSACTIONS = f"{BASE_URL}/account/{accountNo}/transactions"
     TRANSFER = f"{BASE_URL}/transfer"
     FEEDBACK_SUBMISSION = f"{BASE_URL}/feedback/submit"
