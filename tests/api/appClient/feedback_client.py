@@ -19,7 +19,7 @@ class FeedbackClient(BaseClient):
             "name": "Bilbo",
             "email": "Baggiins",
             "subject": "xxxx",
-            "messsage": "I like the new look of your applicaiton",
+            "messsage": "I like the new look of your application",
             })
         return self.request.post(self.submit_feedback, payload, self.headers)
     
