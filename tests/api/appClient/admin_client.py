@@ -23,7 +23,7 @@ class AdminClient(BaseClient):
             "password1": "S3l3ctS0methingStr0ng5AsP@ssword",
             "password2": "S3l3ctS0methingStr0ng5AsP@ssword"
             })
-        return self.request.get(self.admin_create_user, payload, self.admin_headers)
+        return self.request.post(self.admin_create_user, payload, self.admin_headers)
     
     def change_password(self):
         payload = dumps({
@@ -31,4 +31,4 @@ class AdminClient(BaseClient):
             "password1": "Th1s!sz3nu3Passv0rd",
             "password2": "Th1s!sz3nu3Passv0rd"
             })
-        return self.request.get(self.admin_change_password, payload, self.admin_headers)
+        return self.request.post(self.admin_change_password, payload, self.admin_headers)
